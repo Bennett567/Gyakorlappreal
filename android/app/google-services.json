@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "611683708078",
+    "firebase_url": "https://gyakorlapp.firebaseio.com",
+    "project_id": "gyakorlapp",
+    "storage_bucket": "gyakorlapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611683708078:android:21418c273cdae1fdf3113f",
+        "android_client_info": {
+          "package_name": "com.pergerenterprises.loginmodule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611683708078-2rn5trmck7bnn51s7q4pca9vg22gevt0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pergerenterprises.loginmodule",
+            "certificate_hash": "fdac518828abf69fef9b4c6131419f5382335f0a"
+          }
+        },
+        {
+          "client_id": "611683708078-3bvni1p1ml0p5vkohm9vpu0c5juq94bv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5F3c91HXPLy9-TZ7U9ZWs6Csv02RuIKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611683708078-3bvni1p1ml0p5vkohm9vpu0c5juq94bv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
