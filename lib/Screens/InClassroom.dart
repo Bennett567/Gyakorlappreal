@@ -107,6 +107,11 @@ class _InClassRoomState extends State<InClassRoom> {
                     print(jo);
                     print(quest);
 
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Valaszolo(quest, jo, ros1, ros2, ros3,)));
+
                     }
                   )
           )
