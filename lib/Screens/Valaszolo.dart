@@ -14,13 +14,12 @@ bool JoValasz(String pressed, String correct) {
 List<dynamic> answers = [];
 int x = -1;
 
-class Valaszolo extends StatelessWidget {
+class Valaszolo extends StatefulWidget {
   List<dynamic> question;
   List<dynamic> correctAns;
   List<dynamic> ros1;
   List<dynamic> ros2;
   List<dynamic> ros3;
-  List<dynamic> answers = [];
 
   Valaszolo(
     this.question,
@@ -30,20 +29,27 @@ class Valaszolo extends StatelessWidget {
     this.ros3,
   );
 
+  @override
+  _ValaszoloState createState() => _ValaszoloState();
+}
+
+class _ValaszoloState extends State<Valaszolo> {
+  List<dynamic> answers = [];
 
   @override
   Widget build(BuildContext context) {
-    if (x < ros1.length - 1) {
+    if (x < widget.ros1.length-1) {
       x++;
       answers = [];
-      answers.add(ros1[x]);
-      answers.add(ros2[x]);
-      answers.add(ros3[x]);
-      answers.add(correctAns[x]);
+      answers.add(widget.ros1[x]);
+      answers.add(widget.ros2[x]);
+      answers.add(widget.ros3[x]);
+      answers.add(widget.correctAns[x]);
       answers.shuffle();
-    } else {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => InClassRoom()));
+//   }
+//    else {
+//      Navigator.push(
+//          context, MaterialPageRoute(builder: (context) => InClassRoom()));
     }
 
     return Scaffold(
@@ -60,7 +66,7 @@ class Valaszolo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Text(
-                    question[x],
+                    widget.question[x],
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -83,7 +89,7 @@ class Valaszolo extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[0], correctAns[x]))),
+                                            answers[0], widget.correctAns[x]))),
                               );
                             },
                             color: Colors.greenAccent,
@@ -114,7 +120,7 @@ class Valaszolo extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[1], correctAns[x]))),
+                                            answers[1], widget.correctAns[x]))),
                               );
                             },
                             color: Colors.yellowAccent,
@@ -150,7 +156,7 @@ class Valaszolo extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[2], correctAns[x]))),
+                                            answers[2], widget.correctAns[x]))),
                               );
                             },
                             color: Colors.redAccent,
@@ -181,7 +187,7 @@ class Valaszolo extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[3], correctAns[x]))),
+                                            answers[3], widget.correctAns[x]))),
                               );
                             },
                             color: Colors.blueAccent,

@@ -72,11 +72,12 @@ class _AnswerCorrectState extends State<AnswerCorrect> {
                   padding: const EdgeInsets.only(top:20.0),
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.push(
+                     Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Valaszolo(quest, jo, ros1, ros2, ros3)));
-                    },
+                  },
+
                     color: Colors.blueGrey,
                     shape: RoundedRectangleBorder(
                         borderRadius:
