@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:loginmodule/Screens/AnswerCorrect.dart';
+import 'package:loginmodule/Screens/InClassroom.dart';
 
 bool JoValasz(String pressed, String correct) {
   if (pressed == correct) {
@@ -9,17 +10,17 @@ bool JoValasz(String pressed, String correct) {
     return false;
   }
 }
+
 List<dynamic> answers = [];
+int x = -1;
 
-
-class Valaszolo extends StatefulWidget {
+class Valaszolo extends StatelessWidget {
   List<dynamic> question;
   List<dynamic> correctAns;
   List<dynamic> ros1;
   List<dynamic> ros2;
   List<dynamic> ros3;
   List<dynamic> answers = [];
-
 
   Valaszolo(
     this.question,
@@ -29,18 +30,22 @@ class Valaszolo extends StatefulWidget {
     this.ros3,
   );
 
-  @override
-  _ValaszoloState createState() => _ValaszoloState();
-}
 
-class _ValaszoloState extends State<Valaszolo> {
   @override
   Widget build(BuildContext context) {
-    answers.add(widget.ros1[0]);
-    answers.add(widget.ros2[0]);
-    answers.add(widget.ros3[0]);
-    answers.add(widget.correctAns[0]);
-    answers.shuffle();
+    if (x < ros1.length - 1) {
+      x++;
+      answers = [];
+      answers.add(ros1[x]);
+      answers.add(ros2[x]);
+      answers.add(ros3[x]);
+      answers.add(correctAns[x]);
+      answers.shuffle();
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => InClassRoom()));
+    }
+
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -55,7 +60,7 @@ class _ValaszoloState extends State<Valaszolo> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Text(
-                    widget.question[0],
+                    question[x],
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -77,8 +82,8 @@ class _ValaszoloState extends State<Valaszolo> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
-                                        JoValasz(widget.answers[0],
-                                            widget.correctAns[0]))),
+                                        JoValasz(
+                                            answers[0], correctAns[x]))),
                               );
                             },
                             color: Colors.greenAccent,
@@ -86,7 +91,7 @@ class _ValaszoloState extends State<Valaszolo> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: Text(
-                              widget.answers[0],
+                              answers[0],
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
@@ -104,18 +109,20 @@ class _ValaszoloState extends State<Valaszolo> {
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           child: RaisedButton(
                             onPressed: () {
-                              /*Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => AnswerCorrect(JoValasz(widget.answers[1],
-                                  widget.correctAns))),
-                            );*/
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AnswerCorrect(
+                                        JoValasz(
+                                            answers[1], correctAns[x]))),
+                              );
                             },
                             color: Colors.yellowAccent,
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: Text(
-                              widget.answers[1],
+                              answers[1],
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
@@ -138,18 +145,20 @@ class _ValaszoloState extends State<Valaszolo> {
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           child: RaisedButton(
                             onPressed: () {
-                              /* Navigator.push(
+                              Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => AnswerCorrect(JoValasz(widget.answers[2],
-                                    widget.correctAns))),
-                              );*/
+                                MaterialPageRoute(
+                                    builder: (context) => AnswerCorrect(
+                                        JoValasz(
+                                            answers[2], correctAns[x]))),
+                              );
                             },
                             color: Colors.redAccent,
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: Text(
-                              widget.answers[2],
+                              answers[2],
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
@@ -167,18 +176,20 @@ class _ValaszoloState extends State<Valaszolo> {
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           child: RaisedButton(
                             onPressed: () {
-                              /* Navigator.push(
+                              Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => AnswerCorrect(JoValasz(widget.answers[3],
-                                    widget.correctAns))),
-                              );*/
+                                MaterialPageRoute(
+                                    builder: (context) => AnswerCorrect(
+                                        JoValasz(
+                                            answers[3], correctAns[x]))),
+                              );
                             },
                             color: Colors.blueAccent,
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: Text(
-                              widget.answers[3],
+                              answers[3],
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,

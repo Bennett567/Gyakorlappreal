@@ -101,11 +101,11 @@ class _InClassRoomState extends State<InClassRoom> {
                     }
 
                     }
-                    print(ros1);
-                    print(ros2);
-                    print(ros3);
-                    print(jo);
-                    print(quest);
+//                    print(ros1);
+//                    print(ros2);
+//                    print(ros3);
+//                    print(jo);
+//                    print(quest);
 
                     Navigator.push(
                         context,

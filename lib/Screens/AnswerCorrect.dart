@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loginmodule/Screens/InClassroom.dart';
+import 'package:loginmodule/Screens/Valaszolo.dart';
 
 String cw(correct){
   String displayText;
@@ -49,19 +51,57 @@ class _AnswerCorrectState extends State<AnswerCorrect> {
           color: bgColor(widget.correct),
           child: Center(
             child: Container(
-              width: 300,
-              height: 200,
-                child: Text(
-                  cw(widget.correct),
-                  style: TextStyle(
-                    fontSize: 75,
+
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                  Text(
+                    cw(widget.correct),
+                    style: TextStyle(
+                      fontSize: 75,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
+
+
+                Padding(
+                  padding: const EdgeInsets.only(top:20.0),
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Valaszolo(quest, jo, ros1, ros2, ros3)));
+                    },
+                    color: Colors.blueGrey,
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(10))),
+                    child: Text(
+                      "Következő kérdés",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                 ),
+
+
+
+    ],
+
+                 )
+            ),
             ),
           ),
         ),
-      ),
-    );
+      );
+
   }
 }
