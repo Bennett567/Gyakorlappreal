@@ -71,8 +71,10 @@ class _InClassRoomState extends State<InClassRoom> {
                   icon: Icon(Icons.play_arrow),
                   color: Colors.white70,
                   onPressed: () async{
+                    adatok = [];
                     await getData();
-                    print(adatok.length);
+                    //print(adatok.length);
+
                     for(int k = 0; k < adatok.length; k++){
                    // print(adatok[k]);
                     int x=0;

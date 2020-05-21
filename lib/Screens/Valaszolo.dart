@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:loginmodule/Screens/AnswerCorrect.dart';
@@ -37,8 +39,10 @@ class _ValaszoloState extends State<Valaszolo> {
   List<dynamic> answers = [];
 
   @override
-  Widget build(BuildContext context) {
-    if (x < widget.ros1.length-1) {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (x < widget.ros1.length - 1) {
       x++;
       answers = [];
       answers.add(widget.ros1[x]);
@@ -46,12 +50,22 @@ class _ValaszoloState extends State<Valaszolo> {
       answers.add(widget.ros3[x]);
       answers.add(widget.correctAns[x]);
       answers.shuffle();
-//   }
-//    else {
-//      Navigator.push(
-//          context, MaterialPageRoute(builder: (context) => InClassRoom()));
+    } else {
+      scheduleMicrotask(() {
+        answers = [];
+        x =-1;
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => InClassRoom()));
+      });
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    if (answers.length==0){
+      return Scaffold(
+        body: Container());
+    }
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
