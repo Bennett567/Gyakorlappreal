@@ -22,6 +22,7 @@ String _title(BuildContext context, DocumentSnapshot snap) {
 }
 
 Future<void> getData() async{
+  adatok =[];
   QuerySnapshot snapshot = await databaseReference.getDocuments();
     snapshot.documents.forEach((f){
       data = f.data;
@@ -73,6 +74,7 @@ class _InClassRoomState extends State<InClassRoom> {
                   onPressed: () async{
                     adatok = [];
                     await getData();
+
                     //print(adatok.length);
 
                     for(int k = 0; k < adatok.length; k++){

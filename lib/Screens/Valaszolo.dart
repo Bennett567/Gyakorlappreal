@@ -53,6 +53,7 @@ class _ValaszoloState extends State<Valaszolo> {
     } else {
       scheduleMicrotask(() {
         answers = [];
+        ros1 = [];
         x =-1;
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => InClassRoom()));
@@ -66,6 +67,7 @@ class _ValaszoloState extends State<Valaszolo> {
       return Scaffold(
         body: Container());
     }
+
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
