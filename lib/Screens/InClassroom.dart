@@ -15,6 +15,7 @@ List jo = [];
 List ros1 = [];
 List ros2 = [];
 List ros3 = [];
+List test = [];
 
 
 String _title(BuildContext context, DocumentSnapshot snap) {
@@ -25,8 +26,15 @@ Future<void> getData() async{
   adatok =[];
   QuerySnapshot snapshot = await databaseReference.getDocuments();
     snapshot.documents.forEach((f){
-      data = f.data;
-      adatok.add(data);
+
+      data.addAll(f.data);
+
+     // test.add(adatok[0]);
+      //print(f.data.values);
+     // print(data.values.toList());
+      adatok=data.values.toList();
+      //print(adatok[1]);
+
         }
   );
 }
@@ -72,49 +80,48 @@ class _InClassRoomState extends State<InClassRoom> {
                   icon: Icon(Icons.play_arrow),
                   color: Colors.white70,
                   onPressed: () async{
-                    adatok = [];
                     await getData();
 
-                    //print(adatok.length);
+                    //print(data.values);
 
-                    for(int k = 0; k < adatok.length; k++){
-                   // print(adatok[k]);
-                    int x=0;
-                   var splitted = adatok[k].toString().substring(1, adatok[k].toString().length-1).split(",");
-                    for(int i = 0; i < splitted.length; i++){
-                      splitted[i] = splitted[i].split(":")[1].toString();
-                      //print(splitted[i]);
-                      if (x==0){
-                        ros1.add(splitted[i]);
-                      }
-                      if (x==1){
-                        ros2.add(splitted[i]);
-                      }
-                      if (x==2){
-                        ros3.add(splitted[i]);
-                      }
-                      if (x==3){
-                        quest.add(splitted[i]);
-                      }
-                      if (x==4){
-                        jo.add(splitted[i]);
-                        x=0;
-                      }
-                      x++;
-
-                    }
-
-                    }
+//                    for(int k = 0; k < adatok.length; k++){
+//                   // print(adatok[k]);
+                   // int x=0;
+//                   var splitted = adatok[k].toString().substring(1, adatok[k].toString().length-1).split(",");
+//                    for(int i = 0; i < splitted.length; i++){
+//                      splitted[i] = splitted[i].split(":")[1].toString();
+//                      //print(splitted[i]);
+//                      if (x==0){
+//                        ros1.add(splitted[i]);
+//                      }
+//                      if (x==1){
+//                        ros2.add(splitted[i]);
+//                      }
+//                      if (x==2){
+//                        ros3.add(splitted[i]);
+//                      }
+//                      if (x==3){
+//                        quest.add(splitted[i]);
+//                      }
+//                      if (x==4){
+//                        jo.add(splitted[i]);
+//                        x=0;
+//                      }
+//                      x++;
+//
+//                    }
+print(adatok);
+                    //}
 //                    print(ros1);
 //                    print(ros2);
 //                    print(ros3);
 //                    print(jo);
 //                    print(quest);
-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Valaszolo(quest, jo, ros1, ros2, ros3,)));
+                  //print(adatok[0]);
+//                    Navigator.push(
+//                        context,
+//                        MaterialPageRoute(
+//                            builder: (context) => Valaszolo(quest, jo, ros1, ros2, ros3,)));
 
                     }
                   )
