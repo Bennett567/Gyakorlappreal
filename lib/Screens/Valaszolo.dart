@@ -42,7 +42,7 @@ class _ValaszoloState extends State<Valaszolo> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (x < widget.ros1.length - 1) {
+    if (x < widget.ros1.length -1) {
       x++;
       answers = [];
       answers.add(widget.ros1[x]);
@@ -63,6 +63,7 @@ class _ValaszoloState extends State<Valaszolo> {
 
   @override
   Widget build(BuildContext context) {
+
     if (answers.length==0){
       return Scaffold(
         body: Container());
