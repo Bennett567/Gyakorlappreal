@@ -15,7 +15,6 @@ List jo = [];
 List ros1 = [];
 List ros2 = [];
 List ros3 = [];
-List test = [];
 
 String _title(BuildContext context, DocumentSnapshot snap) {
   return snap["Name"];
@@ -24,6 +23,13 @@ String _title(BuildContext context, DocumentSnapshot snap) {
 Future<void> getData() async {
   adatok = [];
   QuerySnapshot snapshot = await databaseReference.getDocuments();
+  adatok = [];
+  quest = [];
+  jo = [];
+  ros1 = [];
+  ros2 = [];
+  ros3 = [];
+
   snapshot.documents.forEach((f) {
     data.addAll(f.data);
     for (int i = 0; i < data.values.toList().length; i++) {
@@ -105,10 +111,16 @@ class _InClassRoomState extends State<InClassRoom> {
                     print(quest);
                     print(jo);
 
-                   Navigator.push(
-                      context,
-                       MaterialPageRoute(
-                           builder: (context) => Valaszolo(quest, jo, ros1, ros2, ros3,)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Valaszolo(
+                                  quest,
+                                  jo,
+                                  ros1,
+                                  ros2,
+                                  ros3,
+                                )));
                   }))
         ],
       ),

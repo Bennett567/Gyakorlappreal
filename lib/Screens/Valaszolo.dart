@@ -65,6 +65,7 @@ class _ValaszoloState extends State<Valaszolo> {
   Widget build(BuildContext context) {
 
     if (answers.length==0){
+      answers =[];
       return Scaffold(
         body: Container());
     }
