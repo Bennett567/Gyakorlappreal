@@ -40,7 +40,7 @@ class _ValaszoloState extends State<Valaszolo> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     if (x < widget.ros1.length -1) {
       x++;

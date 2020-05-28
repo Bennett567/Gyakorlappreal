@@ -126,7 +126,7 @@ class _KahootQuestionState extends State<KahootQuestion> {
                       iconSize: 50,
                       color: Colors.black38,
                       onPressed: () {
-                        Firestore.instance.collection("questions")
+                        Firestore.instance.collection("classrooms").document("BHxhqtvZnSseth0tdVR2").collection("questions")
                             .document()
                             .setData(
                             {

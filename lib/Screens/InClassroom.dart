@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 import 'Valaszolo.dart';
 
-final databaseReference = Firestore.instance.collection("questions");
+final databaseReference = Firestore.instance.collection("classrooms").document("BHxhqtvZnSseth0tdVR2").collection("questions");
 var data = new Map<String, dynamic>();
 
 //Ebben tároljuk a Firestoreból érkező kérdéseket.
