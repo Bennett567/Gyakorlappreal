@@ -107,7 +107,7 @@ class _ValaszoloState extends State<Valaszolo> {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[0], widget.correctAns[x]))),
+                                            answers[0], widget.correctAns[x]), widget.correctAns[x])),
                               );
                             },
                             color: Colors.greenAccent,
@@ -138,7 +138,7 @@ class _ValaszoloState extends State<Valaszolo> {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[1], widget.correctAns[x]))),
+                                            answers[1], widget.correctAns[x]), widget.correctAns[x])),
                               );
                             },
                             color: Colors.yellowAccent,
@@ -174,7 +174,7 @@ class _ValaszoloState extends State<Valaszolo> {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[2], widget.correctAns[x]))),
+                                            answers[2], widget.correctAns[x]),widget.correctAns[x])),
                               );
                             },
                             color: Colors.redAccent,
@@ -205,7 +205,7 @@ class _ValaszoloState extends State<Valaszolo> {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[3], widget.correctAns[x]))),
+                                            answers[3], widget.correctAns[x]), widget.correctAns[x])),
                               );
                             },
                             color: Colors.blueAccent,
