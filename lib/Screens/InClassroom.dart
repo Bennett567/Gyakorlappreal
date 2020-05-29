@@ -5,7 +5,6 @@ import 'package:rxdart/rxdart.dart';
 
 import 'Valaszolo.dart';
 
-final databaseReference = Firestore.instance.collection("classrooms").document("BHxhqtvZnSseth0tdVR2").collection("questions");
 var data = new Map<String, dynamic>();
 
 //Ebben tároljuk a Firestoreból érkező kérdéseket.
@@ -15,12 +14,18 @@ List jo = [];
 List ros1 = [];
 List ros2 = [];
 List ros3 = [];
+String id;
 
 String _title(BuildContext context, DocumentSnapshot snap) {
   return snap["Name"];
 }
 
 Future<void> getData() async {
+  final databaseReference = Firestore.instance
+      .collection("classrooms")
+      .document(id)
+      .collection("questions");
+
   adatok = [];
   QuerySnapshot snapshot = await databaseReference.getDocuments();
   adatok = [];
@@ -46,6 +51,10 @@ class InClassRoom extends StatefulWidget {
 
 class _InClassRoomState extends State<InClassRoom> {
   @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +62,7 @@ class _InClassRoomState extends State<InClassRoom> {
         title: StreamBuilder(
           stream: Firestore.instance
               .collection("classrooms")
-              .document("BHxhqtvZnSseth0tdVR2")
+              .document(id)
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {

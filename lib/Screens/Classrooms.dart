@@ -4,23 +4,26 @@ import 'package:loginmodule/Screens/Valaszolo.dart';
 import 'package:loginmodule/Services/Auth.dart';
 import 'package:loginmodule/Screens/GoogleSignUp.dart';
 
+import 'InClassroom.dart';
+
 final databaseReference = Firestore.instance.collection("classrooms");
 
 var names = new Map<String, dynamic>();
 List nevek = [];
+List AIDS = [];
 
 Future<void> getclasses() async {
   QuerySnapshot snapshot = await databaseReference.getDocuments();
 
   snapshot.documents.forEach((f) {
-  x=(f.data.length);
-      names.addAll(f.data);
-      for (int i = 0; i < names.values.toList().length/x; i++) {
-        nevek.add(names.values.toList()[i]);
-        print(nevek);
-      }
-    });
-  }
+    AIDS.add(f.documentID);
+    x = (f.data.length);
+    names.addAll(f.data);
+    for (int i = 0; i < names.values.toList().length / x; i++) {
+      nevek.add(names.values.toList()[i + 1]);
+    }
+  });
+}
 
 class ScrollableClassroom extends StatefulWidget {
   @override
@@ -31,50 +34,59 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
   @override
   Widget build(BuildContext context) {
     getclasses();
+    print(nevek);
+    print(AIDS);
 
     return WillPopScope(
-        onWillPop: () async => false,
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text("Osztályok"),
-            leading: Padding(
-                padding: const EdgeInsets.only(left: 5.0),
-                child: IconButton(
-                    icon: Icon(Icons.exit_to_app, color: Colors.black38),
-                    onPressed: () {
-                      authService.signOut();
-                      authService.loggedIn = false;
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => GoogleSignUp()));
-                    })),
-            actions: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: Row(
-                    children: <Widget>[
-                      IconButton(
-                          icon: Icon(Icons.add_circle_outline,
-                              color: Colors.black38),
-                          onPressed: null),
-                      IconButton(
-                          icon: Icon(Icons.search, color: Colors.black38),
-                          onPressed: null),
-                    ],
-                  )),
-            ],
-          ),
-//     body: ListView.builder(
-//       itemCount: ,
-//
-//     )
-//           ]
-//        ),
-//      ),
-//    );
-//  }
-        ));
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("Osztályok"),
+          leading: Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: IconButton(
+                  icon: Icon(Icons.exit_to_app, color: Colors.black38),
+                  onPressed: () {
+                    authService.signOut();
+                    authService.loggedIn = false;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GoogleSignUp()));
+                  })),
+          actions: <Widget>[
+            Padding(
+                padding: const EdgeInsets.only(right: 5.0),
+                child: Row(
+                  children: <Widget>[
+                    IconButton(
+                        icon: Icon(Icons.add_circle_outline,
+                            color: Colors.black38),
+                        onPressed: null),
+                    IconButton(
+                        icon: Icon(Icons.search, color: Colors.black38),
+                        onPressed: null),
+                  ],
+                )),
+          ],
+        ),
+        body: ListView.builder(
+          itemCount: nevek.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                onTap: () {
+                  id = AIDS[index];
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => InClassRoom()));
+                },
+                title: Text(nevek[index]),
+              ),
+            );
+          },
+        ),
+      ),
+    );
   }
 }
