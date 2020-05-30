@@ -5,6 +5,7 @@ import 'package:loginmodule/Screens/InClassroom.dart';
 import 'package:loginmodule/Screens/KahootQuestion.dart';
 import 'package:loginmodule/Screens/Classrooms.dart';
 import 'package:loginmodule/Services/Auth.dart';
+import 'package:loginmodule/Screens/Classrooms.dart';
 
 
 class GoogleSignUp extends StatelessWidget {
@@ -36,7 +37,7 @@ class GoogleSignUp extends StatelessWidget {
                   Navigator.push(
                       context,
                     MaterialPageRoute(
-                        builder: (context) => InClassRoom())
+                        builder: (context) => ScrollableClassroom())
                   );},
                 elevation: 20.0,
                 shape: RoundedRectangleBorder(
@@ -63,3 +64,4 @@ class GoogleSignUp extends StatelessWidget {
     );
   }
 }
+

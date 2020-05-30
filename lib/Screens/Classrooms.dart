@@ -7,7 +7,7 @@ import 'package:loginmodule/Screens/GoogleSignUp.dart';
 import 'InClassroom.dart';
 
 final databaseReference = Firestore.instance.collection("classrooms");
-
+bool hany = false;
 var names = new Map<String, dynamic>();
 List nevek = [];
 List AIDS = [];
@@ -32,8 +32,14 @@ class ScrollableClassroom extends StatefulWidget {
 
 class _ScrollableClassroomState extends State<ScrollableClassroom> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    AIDS = [];
+    names.clear();
     getclasses();
+  }
+
+  Widget build(BuildContext context) {
     print(nevek);
     print(AIDS);
 
