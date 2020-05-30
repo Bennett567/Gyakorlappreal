@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loginmodule/Screens/KahootQuestion.dart';
+import 'package:loginmodule/Screens/globals.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'Valaszolo.dart';
@@ -62,7 +63,7 @@ class _InClassRoomState extends State<InClassRoom> {
         title: StreamBuilder(
           stream: Firestore.instance
               .collection("classrooms")
-              .document(id)
+              .document(globals.getid())
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {

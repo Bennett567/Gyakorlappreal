@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loginmodule/Screens/InClassroom.dart';
+import 'package:loginmodule/Screens/globals.dart';
 import 'package:loginmodule/UI/SimpleInputBox.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+String id;
 class KahootQuestion extends StatefulWidget {
   @override
   _KahootQuestionState createState() => _KahootQuestionState();
@@ -126,7 +127,7 @@ class _KahootQuestionState extends State<KahootQuestion> {
                       iconSize: 50,
                       color: Colors.black38,
                       onPressed: () {
-                        Firestore.instance.collection("classrooms").document("BHxhqtvZnSseth0tdVR2").collection("questions")
+                        Firestore.instance.collection("classrooms").document(globals.getid()).collection("questions")
                             .document()
                             .setData(
                             {
