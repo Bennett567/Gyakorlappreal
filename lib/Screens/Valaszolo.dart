@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:loginmodule/Screens/AnswerCorrect.dart';
 import 'package:loginmodule/Screens/InClassroom.dart';
 import 'package:path_provider/path_provider.dart';
+
 bool JoValasz(String pressed, String correct) {
   if (pressed == correct) {
     return true;
@@ -14,8 +15,8 @@ bool JoValasz(String pressed, String correct) {
     return false;
   }
 }
-int x = -1;
 
+int x = -1;
 
 class Valaszolo extends StatefulWidget {
   List<dynamic> question;
@@ -38,22 +39,25 @@ class Valaszolo extends StatefulWidget {
 
 class _ValaszoloState extends State<Valaszolo> {
   List<dynamic> answers = [];
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
-
   }
+
   Future<File> get _localFile async {
     final path = await _localPath;
     return File('$path/${globals.getid()}.txt');
   }
+
   Future<File> writepontok() async {
     final file = await _localFile;
-    print (file);
+    print(file);
 
     // Write the file.
     return file.writeAsString('${globals.getid()}');
   }
+
   Future<String> readpontok() async {
     try {
       final file = await _localFile;
@@ -68,12 +72,10 @@ class _ValaszoloState extends State<Valaszolo> {
     }
   }
 
-
-
   @override
   void initState() {
     super.initState();
-    if (x < widget.ros1.length -1 ) {
+    if (x < widget.ros1.length - 1) {
       x++;
       answers = [];
       answers.add(widget.ros1[x]);

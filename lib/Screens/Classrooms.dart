@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loginmodule/Screens/Valaszolo.dart';
+
 import 'package:loginmodule/Services/Auth.dart';
 import 'package:loginmodule/Screens/GoogleSignUp.dart';
 import 'globals.dart';

@@ -37,6 +37,7 @@ class GoogleSignUp extends StatelessWidget {
                   Navigator.push(
                       context,
                     MaterialPageRoute(
+
                         builder: (context) => ScrollableClassroom())
                   );},
                 elevation: 20.0,

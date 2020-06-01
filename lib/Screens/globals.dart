@@ -9,7 +9,7 @@ class globals {
     id = value;
   }
 
-  static int pontok =0;
+  static int pontok = 0;
 
   static int getpontok() {
     return pontok;
