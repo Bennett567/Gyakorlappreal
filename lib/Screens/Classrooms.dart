@@ -7,24 +7,9 @@ import 'package:loginmodule/Screens/GoogleSignUp.dart';
 import 'globals.dart';
 import 'InClassroom.dart';
 
-final databaseReference = Firestore.instance.collection("classrooms");
-bool hany = false;
-var names = new Map<String, dynamic>();
-List nevek = [];
-List AIDS = [];
 
-Future<void> getclasses() async {
-  QuerySnapshot snapshot = await databaseReference.getDocuments();
 
-  snapshot.documents.forEach((f) {
-    AIDS.add(f.documentID);
-    x = (f.data.length);
-    names.addAll(f.data);
-    for (int i = 0; i < names.values.toList().length / x; i++) {
-      nevek.add(names.values.toList()[i + 1]);
-    }
-  });
-}
+
 
 class ScrollableClassroom extends StatefulWidget {
   @override
@@ -38,8 +23,29 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
     AIDS = [];
     names.clear();
     getclasses();
-  }
 
+  }
+  final databaseReference = Firestore.instance.collection("classrooms");
+  bool hany = false;
+  var names = new Map<String, dynamic>();
+  List nevek = [];
+  List AIDS = [];
+  Future<void> getclasses() async {
+
+    QuerySnapshot snapshot = await databaseReference.getDocuments();
+
+    snapshot.documents.forEach((f) {
+      AIDS.add(f.documentID);
+      x = (f.data.length);
+      names.addAll(f.data);
+      for (int i = 0; i < names.values.toList().length / x; i++) {
+        nevek.add(names.values.toList()[i + 1]);
+
+      }
+    });
+    setState(() {
+    });
+  }
   Widget build(BuildContext context) {
     print(nevek);
     print(AIDS);
@@ -88,6 +94,7 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => InClassRoom()));
                 },
+
                 title: Text(nevek[index]),
               ),
             );
