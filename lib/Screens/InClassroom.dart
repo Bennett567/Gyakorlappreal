@@ -24,7 +24,7 @@ String _title(BuildContext context, DocumentSnapshot snap) {
 Future<void> getData() async {
   final databaseReference = Firestore.instance
       .collection("classrooms")
-      .document(id)
+      .document(globals.getid())
       .collection("questions");
 
   adatok = [];

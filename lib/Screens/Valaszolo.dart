@@ -12,9 +12,8 @@ bool JoValasz(String pressed, String correct) {
     return false;
   }
 }
-
-List<dynamic> answers = [];
 int x = -1;
+
 
 class Valaszolo extends StatefulWidget {
   List<dynamic> question;
@@ -40,9 +39,8 @@ class _ValaszoloState extends State<Valaszolo> {
 
   @override
   void initState() {
-
     super.initState();
-    if (x < widget.ros1.length -1) {
+    if (x < widget.ros1.length -1 ) {
       x++;
       answers = [];
       answers.add(widget.ros1[x]);
@@ -54,7 +52,7 @@ class _ValaszoloState extends State<Valaszolo> {
       scheduleMicrotask(() {
         answers = [];
         ros1 = [];
-        x =-1;
+        x = -1;
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => InClassRoom()));
       });
@@ -63,11 +61,8 @@ class _ValaszoloState extends State<Valaszolo> {
 
   @override
   Widget build(BuildContext context) {
-
-    if (answers.length==0){
-      answers =[];
-      return Scaffold(
-        body: Container());
+    if (answers.length == 0) {
+      return Scaffold(body: Container());
     }
 
     return Scaffold(
@@ -107,7 +102,8 @@ class _ValaszoloState extends State<Valaszolo> {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[0], widget.correctAns[x]), widget.correctAns[x])),
+                                            answers[0], widget.correctAns[x]),
+                                        widget.correctAns[x])),
                               );
                             },
                             color: Colors.greenAccent,
@@ -138,7 +134,8 @@ class _ValaszoloState extends State<Valaszolo> {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[1], widget.correctAns[x]), widget.correctAns[x])),
+                                            answers[1], widget.correctAns[x]),
+                                        widget.correctAns[x])),
                               );
                             },
                             color: Colors.yellowAccent,
@@ -174,7 +171,8 @@ class _ValaszoloState extends State<Valaszolo> {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[2], widget.correctAns[x]),widget.correctAns[x])),
+                                            answers[2], widget.correctAns[x]),
+                                        widget.correctAns[x])),
                               );
                             },
                             color: Colors.redAccent,
@@ -205,7 +203,8 @@ class _ValaszoloState extends State<Valaszolo> {
                                 MaterialPageRoute(
                                     builder: (context) => AnswerCorrect(
                                         JoValasz(
-                                            answers[3], widget.correctAns[x]), widget.correctAns[x])),
+                                            answers[3], widget.correctAns[x]),
+                                        widget.correctAns[x])),
                               );
                             },
                             color: Colors.blueAccent,

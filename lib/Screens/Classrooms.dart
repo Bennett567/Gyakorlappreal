@@ -31,14 +31,14 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
   List nevek = [];
   List AIDS = [];
   Future<void> getclasses() async {
-
+    var y;
     QuerySnapshot snapshot = await databaseReference.getDocuments();
 
     snapshot.documents.forEach((f) {
       AIDS.add(f.documentID);
-      x = (f.data.length);
+      y = (f.data.length);
       names.addAll(f.data);
-      for (int i = 0; i < names.values.toList().length / x; i++) {
+      for (int i = 0; i < names.values.toList().length / y; i++) {
         nevek.add(names.values.toList()[i + 1]);
 
       }
