@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loginmodule/Screens/InClassroom.dart';
-import 'package:loginmodule/Screens/globals.dart';
 import 'package:loginmodule/UI/SimpleInputBox.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-String id;
+import 'globals.dart';
 class KahootQuestion extends StatefulWidget {
   @override
   _KahootQuestionState createState() => _KahootQuestionState();

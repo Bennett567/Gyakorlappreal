@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:loginmodule/Screens/InClassroom.dart';
 import 'package:loginmodule/Screens/Valaszolo.dart';
+import 'globals.dart';
 
 String cw(correct) {
   String displayText;
   if (correct) {
     displayText = "Helyes!";
+    globals.setpontok(globals.getpontok()+1);
     return displayText;
+
   } else {
     displayText = "Nem jó válasz!";
     return displayText;
@@ -34,6 +37,7 @@ String text(correct, answer) {
 class AnswerCorrect extends StatefulWidget {
   bool correct;
   String ans;
+
 
   AnswerCorrect(this.correct, this.ans);
 

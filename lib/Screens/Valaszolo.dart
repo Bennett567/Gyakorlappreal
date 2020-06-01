@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'globals.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:loginmodule/Screens/AnswerCorrect.dart';
 import 'package:loginmodule/Screens/InClassroom.dart';
-
+import 'package:path_provider/path_provider.dart';
 bool JoValasz(String pressed, String correct) {
   if (pressed == correct) {
     return true;
@@ -36,6 +38,37 @@ class Valaszolo extends StatefulWidget {
 
 class _ValaszoloState extends State<Valaszolo> {
   List<dynamic> answers = [];
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+
+  }
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/${globals.getid()}.txt');
+  }
+  Future<File> writepontok() async {
+    final file = await _localFile;
+    print (file);
+
+    // Write the file.
+    return file.writeAsString('${globals.getid()}');
+  }
+  Future<String> readpontok() async {
+    try {
+      final file = await _localFile;
+
+      // Read the file.
+      String contents = await file.readAsString();
+
+      return (contents);
+    } catch (e) {
+      // If encountering an error, return 0.
+      return null;
+    }
+  }
+
+
 
   @override
   void initState() {
@@ -50,9 +83,12 @@ class _ValaszoloState extends State<Valaszolo> {
       answers.shuffle();
     } else {
       scheduleMicrotask(() {
+        writepontok();
+        globals.setpontok(0);
         answers = [];
         ros1 = [];
         x = -1;
+        print(readpontok());
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => InClassRoom()));
       });

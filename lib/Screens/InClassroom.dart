@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loginmodule/Screens/KahootQuestion.dart';
-import 'package:loginmodule/Screens/globals.dart';
 import 'package:rxdart/rxdart.dart';
-
+import 'globals.dart';
 import 'Valaszolo.dart';
 
 var data = new Map<String, dynamic>();
