@@ -1,4 +1,4 @@
-package com.pergerenterprises.gyakorlapp
+package com.mesterek.gyakorlapp
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
