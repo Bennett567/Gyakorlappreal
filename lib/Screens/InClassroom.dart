@@ -39,7 +39,7 @@ Future<void> getData() async {
     data.addAll(f.data);
     for (int i = 0; i < data.values.toList().length; i++) {
       adatok.add(data.values.toList()[i]);
-      //print(adatok);
+
     }
   });
 }
