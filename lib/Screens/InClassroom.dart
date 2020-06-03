@@ -1,11 +1,48 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loginmodule/Screens/KahootQuestion.dart';
 import 'package:rxdart/rxdart.dart';
 import 'globals.dart';
 import 'Valaszolo.dart';
+import 'package:path_provider/path_provider.dart';
 
 var data = new Map<String, dynamic>();
+String pontszam;
+Future<String> get _localPath async {
+  final directory = await getApplicationDocumentsDirectory();
+  debugPrint(directory.path);
+  return directory.path;
+
+}
+
+Future<File> get _localFile async {
+  final path = await _localPath;
+  return File('$path/${globals.getid()}.txt');
+}
+
+Future<File> writepontok() async {
+  final file = await _localFile;
+  print(file);
+
+  // Write the file.
+  return file.writeAsString('${globals.getpontok()}');
+}
+
+Future<String> readpontok() async {
+  try {
+    final file = await _localFile;
+
+    // Read the file.
+    String contents = await file.readAsString();
+
+    return (contents);
+  } catch (e) {
+    // If encountering an error, return 0.
+    return null;
+  }
+}
 
 //Ebben tároljuk a Firestoreból érkező kérdéseket.
 List adatok = [];
@@ -56,6 +93,7 @@ class _InClassRoomState extends State<InClassRoom> {
   }
 
   Widget build(BuildContext context) {
+pontszam=readpontok().toString();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -92,7 +130,7 @@ class _InClassRoomState extends State<InClassRoom> {
                     await getData();
 
                     int x = 0;
-                    print(adatok);
+
                     for (int i = 0; i < adatok.length; i++) {
                       if (x == 0) {
                         ros1.add(adatok[i]);
@@ -114,11 +152,7 @@ class _InClassRoomState extends State<InClassRoom> {
                       x++;
                     }
 
-                    print(ros1);
-                    print(ros2);
-                    print(ros3);
-                    print(quest);
-                    print(jo);
+
 
                     Navigator.push(
                         context,

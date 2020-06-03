@@ -7,6 +7,8 @@ import 'package:loginmodule/Screens/GoogleSignUp.dart';
 import 'globals.dart';
 import 'InClassroom.dart';
 
+
+
 var data = new Map<String, dynamic>();
 var code;
 
@@ -44,28 +46,32 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
                 elevation: 5.0,
                 child: Text('Létrehozás'),
                 onPressed: () {
-                  if (myController.text.toString() != '') {
-                    Firestore.instance
-                        .collection("classrooms")
-                        .document()
-                        .setData(
-                            {"Name": myController.text.toString(), 'Code': code +1});
-
-                  }
-                  getcode();
-                  Firestore.instance.collection('latestcode').document('zTLghFqVFTRKaxaploWe').setData({'code':code+1});
-                  Navigator.of(context).pop(myController.text.toString());
-                  getclasses();
-                  print(AIDS.length);
-
-                  globals.setid(AIDS[AIDS.length-1]);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => InClassRoom()));
+                  pressre(myController, context);
                 },
               )
             ],
           );
         });
+  }
+
+  void pressre(TextEditingController myController, BuildContext context) async {
+    if (myController.text.toString() != '') {
+      await Firestore.instance
+          .collection("classrooms")
+          .document()
+          .setData({"Name": myController.text.toString(), 'Code': code + 1});
+    }
+    await getcode();
+    Firestore.instance
+        .collection('latestcode')
+        .document('zTLghFqVFTRKaxaploWe')
+        .setData({'code': code + 1});
+    Navigator.of(context).pop(myController.text.toString());
+    await getclasses();
+
+    globals.setid(AIDS[AIDS.length - 1]);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => InClassRoom()));
   }
 
   @override
@@ -83,8 +89,11 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
   List AIDS = [];
 
   Future<void> getclasses() async {
+    AIDS.clear();
     var y;
-    QuerySnapshot snapshot = await databaseReference.getDocuments();
+    QuerySnapshot snapshot = await databaseReference
+        .orderBy('Code', descending: false)
+        .getDocuments();
 
     snapshot.documents.forEach((f) {
       AIDS.add(f.documentID);
@@ -126,7 +135,6 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
                             color: Colors.black38),
                         onPressed: () {
                           createPopup(context);
-
                         }),
 //                    IconButton(
 //                        icon: Icon(Icons.search, color: Colors.black38),

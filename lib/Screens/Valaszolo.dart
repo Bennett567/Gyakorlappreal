@@ -42,7 +42,9 @@ class _ValaszoloState extends State<Valaszolo> {
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
+    debugPrint(directory.path);
     return directory.path;
+
   }
 
   Future<File> get _localFile async {
@@ -52,10 +54,10 @@ class _ValaszoloState extends State<Valaszolo> {
 
   Future<File> writepontok() async {
     final file = await _localFile;
-    print(file);
+
 
     // Write the file.
-    return file.writeAsString('${globals.getid()}');
+    return file.writeAsString('${globals.getpontok()}');
   }
 
   Future<String> readpontok() async {
@@ -90,7 +92,7 @@ class _ValaszoloState extends State<Valaszolo> {
         answers = [];
         ros1 = [];
         x = -1;
-        print(readpontok());
+
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => InClassRoom()));
       });
@@ -116,12 +118,19 @@ class _ValaszoloState extends State<Valaszolo> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text(
-                    widget.question[x],
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+
+                     Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        widget.question[x],
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+
+                        ),
+
+
                     ),
                   ),
                   Row(
