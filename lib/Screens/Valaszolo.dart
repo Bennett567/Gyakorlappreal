@@ -38,6 +38,7 @@ class Valaszolo extends StatefulWidget {
 }
 
 class _ValaszoloState extends State<Valaszolo> {
+  var pontok;
   List<dynamic> answers = [];
 
   Future<String> get _localPath async {
@@ -57,7 +58,7 @@ class _ValaszoloState extends State<Valaszolo> {
 
 
     // Write the file.
-    return file.writeAsString('${globals.getpontok()}');
+    return file.writeAsString('$pontok');
   }
 
   Future<String> readpontok() async {
@@ -87,8 +88,10 @@ class _ValaszoloState extends State<Valaszolo> {
       answers.shuffle();
     } else {
       scheduleMicrotask(() {
-        writepontok();
+        pontok = globals.getpontok();
         globals.setpontok(0);
+        writepontok();
+
         answers = [];
         ros1 = [];
         x = -1;
@@ -123,6 +126,7 @@ class _ValaszoloState extends State<Valaszolo> {
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
                         widget.question[x],
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,

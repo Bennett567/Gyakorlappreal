@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:loginmodule/Screens/Classrooms.dart';
 import 'package:loginmodule/Screens/KahootQuestion.dart';
 import 'package:rxdart/rxdart.dart';
 import 'globals.dart';
@@ -10,11 +11,11 @@ import 'package:path_provider/path_provider.dart';
 
 var data = new Map<String, dynamic>();
 String pontszam;
+
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
   debugPrint(directory.path);
   return directory.path;
-
 }
 
 Future<File> get _localFile async {
@@ -37,7 +38,7 @@ Future<String> readpontok() async {
     // Read the file.
     String contents = await file.readAsString();
 
-    return (contents);
+    return await contents;
   } catch (e) {
     // If encountering an error, return 0.
     return null;
@@ -52,6 +53,7 @@ List ros1 = [];
 List ros2 = [];
 List ros3 = [];
 String id;
+
 
 String _title(BuildContext context, DocumentSnapshot snap) {
   return snap["Name"];
@@ -76,7 +78,6 @@ Future<void> getData() async {
     data.addAll(f.data);
     for (int i = 0; i < data.values.toList().length; i++) {
       adatok.add(data.values.toList()[i]);
-
     }
   });
 }
@@ -88,12 +89,14 @@ class InClassRoom extends StatefulWidget {
 
 class _InClassRoomState extends State<InClassRoom> {
   @override
+  var pontsz = readpontok().toString();
   void initState() {
     super.initState();
+
   }
 
   Widget build(BuildContext context) {
-pontszam=readpontok().toString();
+    pontszam = readpontok().toString();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -112,18 +115,32 @@ pontszam=readpontok().toString();
         leading: Padding(
             padding: const EdgeInsets.only(left: 10.0),
             child: IconButton(
-                icon: Icon(Icons.add_circle_outline),
+                icon: Icon(Icons.keyboard_backspace),
                 color: Colors.white70,
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => KahootQuestion()));
+                          builder: (context) => ScrollableClassroom()));
                 })),
+
         actions: <Widget>[
           Padding(
               padding: const EdgeInsets.only(right: 10.0),
-              child: IconButton(
+              child: Row(
+              children: <Widget>[
+
+                IconButton(
+                    icon: Icon(Icons.add_circle_outline),
+                    color: Colors.white70,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => KahootQuestion()));
+                    }),
+
+                IconButton(
                   icon: Icon(Icons.play_arrow),
                   color: Colors.white70,
                   onPressed: () async {
@@ -152,8 +169,6 @@ pontszam=readpontok().toString();
                       x++;
                     }
 
-
-
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -164,9 +179,25 @@ pontszam=readpontok().toString();
                                   ros2,
                                   ros3,
                                 )));
-                  }))
+                  })]))
         ],
       ),
-    );
+    body: Center(
+      child: Text(
+        pontsz.toString(),
+        textAlign: TextAlign.center,
+        style: TextStyle(
+
+          fontSize: 50,
+          color: Colors.black,
+
+
+        ),
+
+
+      ),
+
+    ),);
   }
+
 }

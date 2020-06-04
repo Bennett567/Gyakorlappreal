@@ -7,8 +7,6 @@ import 'package:loginmodule/Screens/GoogleSignUp.dart';
 import 'globals.dart';
 import 'InClassroom.dart';
 
-
-
 var data = new Map<String, dynamic>();
 var code;
 
@@ -116,7 +114,7 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
           leading: Padding(
               padding: const EdgeInsets.only(left: 5.0),
               child: IconButton(
-                  icon: Icon(Icons.exit_to_app, color: Colors.black38),
+                  icon: Icon(Icons.exit_to_app, color: Colors.white70),
                   onPressed: () {
                     authService.signOut();
                     authService.loggedIn = false;
@@ -132,7 +130,7 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
                   children: <Widget>[
                     IconButton(
                         icon: Icon(Icons.add_circle_outline,
-                            color: Colors.black38),
+                            color: Colors.white70),
                         onPressed: () {
                           createPopup(context);
                         }),
