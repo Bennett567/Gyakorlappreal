@@ -31,19 +31,6 @@ Future<File> writepontok() async {
   return file.writeAsString('${globals.getpontok()}');
 }
 
-Future<String> readpontok() async {
-  try {
-    final file = await _localFile;
-
-    // Read the file.
-    String contents = await file.readAsString();
-
-    return await contents;
-  } catch (e) {
-    // If encountering an error, return 0.
-    return null;
-  }
-}
 
 //Ebben tároljuk a Firestoreból érkező kérdéseket.
 List adatok = [];
@@ -88,9 +75,28 @@ class InClassRoom extends StatefulWidget {
 }
 
 class _InClassRoomState extends State<InClassRoom> {
+
   @override
-  var pontsz = readpontok().toString();
+var pontsz;
+  Future<String> readpontok() async {
+    try {
+      final file = await _localFile;
+
+      // Read the file.
+      String contents = await file.readAsString();
+      setState((){
+        pontsz=contents;
+
+      });
+
+    } catch (e) {
+      // If encountering an error, return 0.
+      pontsz="ERROR" ;
+    }
+  }
+
   void initState() {
+    readpontok();
     super.initState();
 
   }
@@ -184,7 +190,8 @@ class _InClassRoomState extends State<InClassRoom> {
       ),
     body: Center(
       child: Text(
-        pontsz.toString(),
+        (pontsz != null)? "A legutóbbi pontszámod: ${pontsz.toString()}.":"Még nem játszottad le.",
+
         textAlign: TextAlign.center,
         style: TextStyle(
 
