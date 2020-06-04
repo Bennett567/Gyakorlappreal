@@ -43,7 +43,7 @@ class _ValaszoloState extends State<Valaszolo> {
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
-    debugPrint(directory.path);
+
     return directory.path;
 
   }
