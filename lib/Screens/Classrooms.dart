@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loginmodule/Screens/Valaszolo.dart';
@@ -30,34 +32,86 @@ Future<void> getcode() async {
 class _ScrollableClassroomState extends State<ScrollableClassroom> {
   Future<String> createPopup(BuildContext context) {
     TextEditingController myController = TextEditingController();
+    TextEditingController Controller = TextEditingController();
     getcode();
     return showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: Text('Mi legyen a neve?'),
-            content: TextField(
-              controller: myController,
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(100)),
             ),
-            actions: <Widget>[
-              MaterialButton(
-                elevation: 5.0,
-                child: Text('Létrehozás'),
-                onPressed: () {
-                  pressre(myController, context);
-                },
-              )
-            ],
+            child: AlertDialog(
+              title: Text('Osztály létrehozása'),
+              content: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                margin: EdgeInsets.all(20),
+                height: 100,
+                width: 250,
+                child: Column(
+                  children: <Widget>[
+                    TextField(
+                      controller: myController,
+                      decoration: InputDecoration(hintText: "Név"),
+                    ),
+                    TextField(
+                        controller: Controller,
+                        decoration: InputDecoration(hintText: "Jelszó"))
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                MaterialButton(
+                  elevation: 5.0,
+                  child: Text('Létrehozás'),
+                  onPressed: () {
+                    pressre(myController, context, Controller);
+                  },
+                )
+              ],
+            ),
           );
         });
   }
 
-  void pressre(TextEditingController myController, BuildContext context) async {
+  Future<String> jelszobasz(BuildContext context) {
+    TextEditingController jelszoController = TextEditingController();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text('Add meg a jelszót'),
+              content: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: TextField(
+                      controller: jelszoController,
+                      decoration: InputDecoration(hintText: "Jelszó")
+                  )
+              ),
+            actions: <Widget>[
+          MaterialButton(
+          elevation: 5.0,
+            child: Text('Mehet'),
+            onPressed: () {
+              jelszopress(jelszoController, context);
+            },
+          )]);
+        }
+      );
+  }
+
+  void pressre(TextEditingController myController, BuildContext context,
+      TextEditingController Controller) async {
     if (myController.text.toString() != '') {
-      await Firestore.instance
-          .collection("classrooms")
-          .document()
-          .setData({"Name": myController.text.toString(), 'Code': code + 1});
+      await Firestore.instance.collection("classrooms").document().setData({
+        "Name": myController.text.toString(),
+        'Code': code + 1,
+        "Jelszo": Controller.text.toString(),
+      });
     }
     await getcode();
     Firestore.instance
@@ -70,6 +124,18 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
     globals.setid(AIDS[AIDS.length - 1]);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => InClassRoom()));
+  }
+  void jelszopress(TextEditingController jelszoController, BuildContext context) async{
+  var jelszo;
+    DocumentReference docRef =   Firestore.instance.collection('classrooms').document(globals.getid());
+    await docRef.get().then((value) => jelszo= (value.data['Jelszo']) );
+   if (jelszo == jelszoController.text.toString()){
+     Navigator.push(context,
+         MaterialPageRoute(builder: (context) => InClassRoom()));
+   }
+  else{
+    print('Buzi-e vagy?');
+   }
   }
 
   @override
@@ -148,8 +214,8 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
               child: ListTile(
                 onTap: () {
                   globals.setid(AIDS[index]);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => InClassRoom()));
+                  jelszobasz(context);
+
                 },
                 title: Text(nevek[index]),
               ),

@@ -8,6 +8,6 @@ import 'package:loginmodule/Screens/Valaszolo.dart';
 
 void main() {
   runApp(
-    MaterialApp(title: 'Login App', home: GoogleSignUp()),
+    MaterialApp(title: 'Gyakorlapp', home: GoogleSignUp()),
   );
 }
