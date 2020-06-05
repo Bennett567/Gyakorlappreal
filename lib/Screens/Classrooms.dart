@@ -30,6 +30,7 @@ Future<void> getcode() async {
 }
 
 class _ScrollableClassroomState extends State<ScrollableClassroom> {
+
   Future<String> createPopup(BuildContext context) {
     TextEditingController myController = TextEditingController();
     TextEditingController Controller = TextEditingController();
@@ -76,33 +77,6 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
         });
   }
 
-  Future<String> jelszobasz(BuildContext context) {
-    TextEditingController jelszoController = TextEditingController();
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-              title: Text('Add meg a jelszót'),
-              content: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                  child: TextField(
-                      controller: jelszoController,
-                      decoration: InputDecoration(hintText: "Jelszó")
-                  )
-              ),
-            actions: <Widget>[
-          MaterialButton(
-          elevation: 5.0,
-            child: Text('Mehet'),
-            onPressed: () {
-              jelszopress(jelszoController, context);
-            },
-          )]);
-        }
-      );
-  }
 
   void pressre(TextEditingController myController, BuildContext context,
       TextEditingController Controller) async {
@@ -125,18 +99,7 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => InClassRoom()));
   }
-  void jelszopress(TextEditingController jelszoController, BuildContext context) async{
-  var jelszo;
-    DocumentReference docRef =   Firestore.instance.collection('classrooms').document(globals.getid());
-    await docRef.get().then((value) => jelszo= (value.data['Jelszo']) );
-   if (jelszo == jelszoController.text.toString()){
-     Navigator.push(context,
-         MaterialPageRoute(builder: (context) => InClassRoom()));
-   }
-  else{
-    print('Buzi-e vagy?');
-   }
-  }
+
 
   @override
   void initState() {
@@ -164,7 +127,7 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
       y = (f.data.length);
       names.addAll(f.data);
       for (int i = 0; i < names.values.toList().length / y; i++) {
-        nevek.add(names.values.toList()[i + 1]);
+        nevek.add(names.values.toList()[i+2]);
       }
     });
     setState(() {});
@@ -207,22 +170,88 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
                 )),
           ],
         ),
-        body: ListView.builder(
-          itemCount: nevek.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                onTap: () {
-                  globals.setid(AIDS[index]);
-                  jelszobasz(context);
+        body: Builder(
+            builder: (BuildContext context){
+          return SnackBarPage (nevek, AIDS);
+        }
 
-                },
-                title: Text(nevek[index]),
-              ),
-            );
-          },
         ),
-      ),
+    ) );
+
+  }
+}
+
+class SnackBarPage extends StatelessWidget {
+
+  void jelszopress(TextEditingController jelszoController, BuildContext context) async{
+    var jelszo;
+    DocumentReference docRef =   Firestore.instance.collection('classrooms').document(globals.getid());
+    await docRef.get().then((value) => jelszo= (value.data['Jelszo']) );
+    if (jelszo == jelszoController.text.toString()){
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => InClassRoom()));
+    }
+    else{
+      Navigator.pop(context);
+
+
+      final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
+
+      Scaffold.of(context).showSnackBar(snackBar);
+
+      print('Buzi-e vagy?');
+    }
+  }
+
+
+  Future<String> jelszobasz(BuildContext context) {
+    TextEditingController jelszoController = TextEditingController();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text('Add meg a jelszót'),
+              content: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: TextField(
+                      controller: jelszoController,
+                      decoration: InputDecoration(hintText: "Jelszó")
+                  )
+              ),
+              actions: <Widget>[
+                MaterialButton(
+                  elevation: 5.0,
+                  child: Text('Mehet'),
+                  onPressed: () {
+                    jelszopress(jelszoController, context);
+                  },
+                )]);
+        }
     );
+  }
+
+  var nevek;
+  var AIDS;
+  SnackBarPage(this.nevek, this.AIDS);
+  @override
+  Widget build(BuildContext context){
+    return ListView.builder(
+      itemCount: nevek.length,
+      itemBuilder: (context, index) {
+        return Card(
+          child: ListTile(
+            onTap: () {
+              globals.setid(AIDS[index]);
+              jelszobasz(context);
+
+            },
+            title: Text(nevek[index]),
+          ),
+        );
+      },
+    ) ;
+
   }
 }
