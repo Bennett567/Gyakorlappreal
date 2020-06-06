@@ -103,108 +103,112 @@ var pontsz;
 
   Widget build(BuildContext context) {
     pontszam = readpontok().toString();
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: StreamBuilder(
-          stream: Firestore.instance
-              .collection("classrooms")
-              .document(globals.getid())
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Text("Loading");
-            }
-            return Text(_title(context, snapshot.data));
-          },
-        ),
-        leading: Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: IconButton(
-                icon: Icon(Icons.keyboard_backspace),
-                color: Colors.white70,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ScrollableClassroom()));
-                })),
 
-        actions: <Widget>[
-          Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: Row(
-              children: <Widget>[
-
-                IconButton(
-                    icon: Icon(Icons.add_circle_outline),
-                    color: Colors.white70,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => KahootQuestion()));
-                    }),
-
-                IconButton(
-                  icon: Icon(Icons.play_arrow),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: StreamBuilder(
+            stream: Firestore.instance
+                .collection("classrooms")
+                .document(globals.getid())
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Text("Loading");
+              }
+              return Text(_title(context, snapshot.data));
+            },
+          ),
+          leading: Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: IconButton(
+                  icon: Icon(Icons.keyboard_backspace),
                   color: Colors.white70,
-                  onPressed: () async {
-                    await getData();
-
-                    int x = 0;
-
-                    for (int i = 0; i < adatok.length; i++) {
-                      if (x == 0) {
-                        ros1.add(adatok[i]);
-                      }
-                      if (x == 1) {
-                        ros2.add(adatok[i]);
-                      }
-                      if (x == 2) {
-                        ros3.add(adatok[i]);
-                      }
-                      if (x == 3) {
-                        quest.add(adatok[i]);
-                      }
-                      if (x == 4) {
-                        jo.add(adatok[i]);
-                        x = 0;
-                        continue;
-                      }
-                      x++;
-                    }
-
+                  onPressed: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Valaszolo(
-                                  quest,
-                                  jo,
-                                  ros1,
-                                  ros2,
-                                  ros3,
-                                )));
-                  })]))
-        ],
-      ),
-    body: Center(
-      child: Text(
-        (pontsz != null)? "A legutóbbi pontszámod: ${pontsz.toString()}.":"Még nem játszottad le.",
+                            builder: (context) => ScrollableClassroom()));
+                  })),
 
-        textAlign: TextAlign.center,
-        style: TextStyle(
+          actions: <Widget>[
+            Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Row(
+                children: <Widget>[
 
-          fontSize: 50,
-          color: Colors.black,
+                  IconButton(
+                      icon: Icon(Icons.add_circle_outline),
+                      color: Colors.white70,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => KahootQuestion()));
+                      }),
+
+                  IconButton(
+                    icon: Icon(Icons.play_arrow),
+                    color: Colors.white70,
+                    onPressed: () async {
+                      await getData();
+
+                      int x = 0;
+
+                      for (int i = 0; i < adatok.length; i++) {
+                        if (x == 0) {
+                          ros1.add(adatok[i]);
+                        }
+                        if (x == 1) {
+                          ros2.add(adatok[i]);
+                        }
+                        if (x == 2) {
+                          ros3.add(adatok[i]);
+                        }
+                        if (x == 3) {
+                          quest.add(adatok[i]);
+                        }
+                        if (x == 4) {
+                          jo.add(adatok[i]);
+                          x = 0;
+                          continue;
+                        }
+                        x++;
+                      }
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Valaszolo(
+                                    quest,
+                                    jo,
+                                    ros1,
+                                    ros2,
+                                    ros3,
+                                  )));
+                    })]))
+          ],
+        ),
+      body: Center(
+        child: Text(
+          (pontsz != null)? "A legutóbbi pontszámod: ${pontsz.toString()}.":"Még nem játszottad le.",
+
+          textAlign: TextAlign.center,
+          style: TextStyle(
+
+            fontSize: 50,
+            color: Colors.black,
+
+
+          ),
 
 
         ),
 
-
-      ),
-
-    ),);
+      ),),
+    );
   }
 
 }
