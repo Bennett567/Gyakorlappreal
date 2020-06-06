@@ -11,6 +11,7 @@ import 'InClassroom.dart';
 
 var data = new Map<String, dynamic>();
 var code;
+final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 class ScrollableClassroom extends StatefulWidget {
   @override
@@ -30,6 +31,7 @@ Future<void> getcode() async {
 }
 
 class _ScrollableClassroomState extends State<ScrollableClassroom> {
+  GlobalKey<RefreshIndicatorState> refreshKey;
 
   Future<String> createPopup(BuildContext context) {
     TextEditingController myController = TextEditingController();
@@ -104,6 +106,8 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
   @override
   void initState() {
     super.initState();
+    refreshKey = GlobalKey<RefreshIndicatorState>();
+
     AIDS = [];
     names.clear();
     getclasses();
@@ -126,8 +130,10 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
       AIDS.add(f.documentID);
       y = (f.data.length);
       names.addAll(f.data);
-      for (int i = 0; i < names.values.toList().length / y; i++) {
-        nevek.add(names.values.toList()[i+2]);
+      for (int i = 0; i < names.values
+          .toList()
+          .length / y; i++) {
+        nevek.add(names.values.toList()[i + 2]);
       }
     });
     setState(() {});
@@ -135,71 +141,79 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
 
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Osztályok"),
-          leading: Padding(
-              padding: const EdgeInsets.only(left: 5.0),
-              child: IconButton(
-                  icon: Icon(Icons.exit_to_app, color: Colors.white70),
-                  onPressed: () {
-                    authService.signOut();
-                    authService.loggedIn = false;
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => GoogleSignUp()));
-                  })),
-          actions: <Widget>[
-            Padding(
-                padding: const EdgeInsets.only(right: 5.0),
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                        icon: Icon(Icons.add_circle_outline,
-                            color: Colors.white70),
-                        onPressed: () {
-                          createPopup(context);
-                        }),
+        onWillPop: () async => false,
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text("Osztályok"),
+            leading: Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: IconButton(
+                    icon: Icon(Icons.exit_to_app, color: Colors.white70),
+                    onPressed: () {
+                      authService.signOut();
+                      authService.loggedIn = false;
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => GoogleSignUp()));
+                    })),
+            actions: <Widget>[
+              Padding(
+                  padding: const EdgeInsets.only(right: 5.0),
+                  child: Row(
+                    children: <Widget>[
+                      IconButton(
+                          icon: Icon(Icons.add_circle_outline,
+                              color: Colors.white70),
+                          onPressed: () {
+                            createPopup(context);
+                          }),
 //                    IconButton(
 //                        icon: Icon(Icons.search, color: Colors.black38),
 //                        onPressed: null),
-                  ],
-                )),
-          ],
-        ),
-        body: Builder(
-            builder: (BuildContext context){
-          return SnackBarPage (nevek, AIDS);
-        }
+                    ],
+                  )),
+            ],
+          ),
+          body: RefreshIndicator(
+            key: refreshKey,
+            onRefresh: () async{
+              nevek.clear();
+              AIDS.clear();
+              await getclasses();
+            },
+            child: Builder(
+                builder: (BuildContext context) {
+                  return SnackBarPage(nevek, AIDS);
+                }
 
-        ),
-    ) );
-
+            ),
+          ),
+        ));
   }
 }
 
 class SnackBarPage extends StatelessWidget {
 
-  void jelszopress(TextEditingController jelszoController, BuildContext context) async{
+  void jelszopress(TextEditingController jelszoController,
+      BuildContext context) async {
     var jelszo;
-    DocumentReference docRef =   Firestore.instance.collection('classrooms').document(globals.getid());
-    await docRef.get().then((value) => jelszo= (value.data['Jelszo']) );
-    if (jelszo == jelszoController.text.toString()){
+    DocumentReference docRef = Firestore.instance.collection('classrooms')
+        .document(globals.getid());
+    await docRef.get().then((value) => jelszo = (value.data['Jelszo']));
+    if (jelszo == jelszoController.text.toString()) {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => InClassRoom()));
     }
-    else{
+    else {
+
       Navigator.pop(context);
 
+      final snackBar = SnackBar(content: Text('Helytelen jelszó'));
 
-      final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
-
-      Scaffold.of(context).showSnackBar(snackBar);
-
-      print('Buzi-e vagy?');
+      _scaffoldKey.currentState.showSnackBar(snackBar);
     }
   }
 
@@ -227,31 +241,39 @@ class SnackBarPage extends StatelessWidget {
                   onPressed: () {
                     jelszopress(jelszoController, context);
                   },
-                )]);
+                )
+              ]);
         }
     );
   }
 
   var nevek;
   var AIDS;
+
   SnackBarPage(this.nevek, this.AIDS);
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: nevek.length,
       itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            onTap: () {
-              globals.setid(AIDS[index]);
-              jelszobasz(context);
+        return
+        Builder(
+            builder: (BuildContext context) {
+              return Card(
+                child: ListTile(
+                  onTap: () {
+                    globals.setid(AIDS[index]);
+                    jelszobasz(context);
+                  },
+                  title: Text(nevek[index]),
+                )
+                ,
+              );
 
-            },
-            title: Text(nevek[index]),
-          ),
+            }
         );
       },
-    ) ;
-
+    );
   }
 }
