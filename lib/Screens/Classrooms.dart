@@ -120,6 +120,8 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
   List AIDS = [];
 
   Future<void> getclasses() async {
+    names.clear();
+    nevek.clear();
     AIDS.clear();
     var y;
     QuerySnapshot snapshot = await databaseReference
@@ -182,6 +184,7 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
             onRefresh: () async{
               nevek.clear();
               AIDS.clear();
+
               await getclasses();
             },
             child: Builder(
