@@ -258,21 +258,21 @@ class SnackBarPage extends StatelessWidget {
       itemCount: nevek.length,
       itemBuilder: (context, index) {
         return
-        Builder(
-            builder: (BuildContext context) {
-              return Card(
-                child: ListTile(
-                  onTap: () {
-                    globals.setid(AIDS[index]);
-                    jelszobasz(context);
-                  },
-                  title: Text(nevek[index]),
-                )
-                ,
-              );
+          Builder(
+              builder: (BuildContext context) {
+                return Card(
+                  child: ListTile(
+                    onTap: () {
+                      globals.setid(AIDS[index]);
+                      jelszobasz(context);
+                    },
+                    title: Text(nevek[index]),
+                  )
+                  ,
+                );
 
-            }
-        );
+              }
+          );
       },
     );
   }
