@@ -12,6 +12,6 @@ void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
   .then((_){
   runApp(
-    MaterialApp(title: 'Gyakorlapp', home: ScrollableClassroom())
+    MaterialApp(title: 'Gyakorlapp', home: GoogleSignUp())
   );});
 }

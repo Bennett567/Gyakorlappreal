@@ -14,7 +14,6 @@ String pontszam;
 
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
-  debugPrint(directory.path);
   return directory.path;
 }
 
@@ -25,7 +24,6 @@ Future<File> get _localFile async {
 
 Future<File> writepontok() async {
   final file = await _localFile;
-  print(file);
 
   // Write the file.
   return file.writeAsString('${globals.getpontok()}');
