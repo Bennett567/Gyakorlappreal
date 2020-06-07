@@ -38,7 +38,7 @@ class Valaszolo extends StatefulWidget {
 }
 
 class _ValaszoloState extends State<Valaszolo> {
-  var pontok;
+  var pontok = 0;
   List<dynamic> answers = [];
 
   Future<String> get _localPath async {
