@@ -97,8 +97,8 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
     Navigator.of(context).pop(myController.text.toString());
     await getclasses();
 
-    globals.setid(AIDS[AIDS.length - 1]);
-    Navigator.push(
+    globals.setid(IDS[IDS.length - 1]);
+   await Navigator.push(
         context, MaterialPageRoute(builder: (context) => InClassRoom()));
   }
 
@@ -108,7 +108,7 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
     super.initState();
     refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    AIDS = [];
+    IDS = [];
     names.clear();
     getclasses();
   }
@@ -117,19 +117,19 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
   bool hany = false;
   var names = new Map<String, dynamic>();
   List nevek = [];
-  List AIDS = [];
+  List IDS = [];
 
   Future<void> getclasses() async {
     names.clear();
     nevek.clear();
-    AIDS.clear();
+    IDS.clear();
     var y;
     QuerySnapshot snapshot = await databaseReference
         .orderBy('Code', descending: false)
         .getDocuments();
 
     snapshot.documents.forEach((f) {
-      AIDS.add(f.documentID);
+      IDS.add(f.documentID);
       y = (f.data.length);
       names.addAll(f.data);
       for (int i = 0; i < names.values
@@ -183,13 +183,13 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
             key: refreshKey,
             onRefresh: () async{
               nevek.clear();
-              AIDS.clear();
+              IDS.clear();
 
               await getclasses();
             },
             child: Builder(
                 builder: (BuildContext context) {
-                  return SnackBarPage(nevek, AIDS);
+                  return SnackBarPage(nevek, IDS);
                 }
 
             ),
