@@ -97,8 +97,8 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
     Navigator.of(context).pop(myController.text.toString());
     await getclasses();
 
-    globals.setid(IDS[IDS.length - 1]);
-   await Navigator.push(
+   globals.setid(IDS[IDS.length - 1]);
+    Navigator.push(
         context, MaterialPageRoute(builder: (context) => InClassRoom()));
   }
 
