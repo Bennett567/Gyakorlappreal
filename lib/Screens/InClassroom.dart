@@ -120,7 +120,7 @@ class _InClassRoomState extends State<InClassRoom> {
                   icon: Icon(Icons.keyboard_backspace),
                   color: Colors.white70,
                   onPressed: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => ScrollableClassroom()));
