@@ -10,8 +10,7 @@ import 'package:loginmodule/Screens/Valaszolo.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-  .then((_){
-  runApp(
-    MaterialApp(title: 'Gyakorlapp', home: GoogleSignUp())
-  );});
+      .then((_) {
+    runApp(MaterialApp(title: 'Gyakorlapp', home: GoogleSignUp()));
+  });
 }

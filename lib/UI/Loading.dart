@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loginmodule/Screens/Classrooms.dart';
 
-
 import 'package:loginmodule/Services/Auth.dart';
 
 class Loading extends StatefulWidget {
@@ -13,13 +12,11 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
-    if(authService.loggedIn){
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ScrollableClassroom())
-      );
-    };
+    if (authService.loggedIn) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => ScrollableClassroom()));
+    }
+    ;
     return Center(
       child: Container(
         color: Colors.black,

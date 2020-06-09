@@ -94,12 +94,13 @@ class _ScrollableClassroomState extends State<ScrollableClassroom> {
         .collection('latestcode')
         .document('zTLghFqVFTRKaxaploWe')
         .setData({'code': code + 1});
-    Navigator.of(context).pop(myController.text.toString());
+
     await getclasses();
 
    globals.setid(IDS[IDS.length - 1]);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => InClassRoom()));
+
+    Navigator.pushReplacement(
+        context,  MaterialPageRoute(builder: (context) => InClassRoom()));
   }
 
 
@@ -257,6 +258,8 @@ class SnackBarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (nevek.isEmpty){
+    }
     return ListView.builder(
       itemCount: nevek.length,
       itemBuilder: (context, index) {

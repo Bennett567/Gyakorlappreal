@@ -45,7 +45,6 @@ class _ValaszoloState extends State<Valaszolo> {
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
-
   }
 
   Future<File> get _localFile async {
@@ -55,7 +54,6 @@ class _ValaszoloState extends State<Valaszolo> {
 
   Future<File> writepontok() async {
     final file = await _localFile;
-
 
     // Write the file.
     return file.writeAsString('$pontok');
@@ -121,20 +119,16 @@ class _ValaszoloState extends State<Valaszolo> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-
-                     Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        widget.question[x],
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-
-                        ),
-
-
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      widget.question[x],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                   Row(

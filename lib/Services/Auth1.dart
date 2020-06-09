@@ -53,4 +53,5 @@ class Auth implements BaseAuth {
   Future<bool> isEmailVerified() async {
     FirebaseUser user = await _firebaseAuth.currentUser();
     return user.isEmailVerified;
-  }}
+  }
+}
