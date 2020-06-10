@@ -7,7 +7,6 @@ String cw(correct) {
   String displayText;
   if (correct) {
     displayText = "Helyes!";
-    globals.setpontok(globals.getpontok() + 1);
     return displayText;
   } else {
     displayText = "Nem jó válasz!";
@@ -45,6 +44,13 @@ class AnswerCorrect extends StatefulWidget {
 
 class _AnswerCorrectState extends State<AnswerCorrect> {
   @override
+  void initState(){
+    super.initState();
+    if (widget.correct){
+      globals.setpontok(globals.getpontok()+1);
+    }
+
+  }
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
